@@ -54,6 +54,11 @@
     transition: all 300ms;
     cursor: pointer;
 }
+
+.movil{
+    display: none;
+}
+
 .reservar-ahora:hover{
     color: #000;
     background-color: rgba(102, 97, 97, 0.2);
@@ -345,4 +350,13 @@ h2 {
         width: 100%;
         padding: 0 0 20px 0;
     }
+    .movil{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .pc{
+        display: none;
+    }
+
 }

@@ -1,0 +1,59 @@
+ main {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .form-container {
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  label {
+    font-weight: bold;
+    margin-top: 12px;
+    display: block;
+  }
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  .suite-info {
+    background: #f1f3f5;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-size: 14px;
+  }
+  .total {
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #2d6a4f;
+  }
+  button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #0056b3;
+  }

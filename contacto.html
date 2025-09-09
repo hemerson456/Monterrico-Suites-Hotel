@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="assets/fondos/slider/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contacto.css">
     <script src="scripts.js" async defer></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -58,8 +59,38 @@
     </header>
 
     <main id="main-bloq">
+        <div class="form-container">
+            <h2>Reservar Suite</h2>
+            <form id="reservaForm">
+                <label>Nombre completo</label>
+                <input type="text" id="nombre" required>
 
+                <label>Número de WhatsApp</label>
+                <input type="tel" id="whatsapp" placeholder="+51 999 999 999" required>
 
+                <label>Seleccione una Suite</label>
+                <select id="suite" required>
+                    <option value="">-- Seleccione --</option>
+                    <option value="1">Suit 1 (Dos camas Queen, 1 cama 1 ½)</option>
+                    <option value="2">Suit 2 (Una cama Queen, 1 cama 1 ½)</option>
+                    <option value="3">Suit 3 (Dos camas Queen, 1 cama 1 ½)</option>
+                    <option value="4">Suit 4 (Tres camas Queen)</option>
+                    <option value="5">Suit 5 (Tres camas Queen)</option>
+                </select>
+
+                <div class="suite-info" id="suiteInfo">Seleccione una suite para ver la información.</div>
+
+                <label>Fecha de entrada</label>
+                <input type="date" id="fechaEntrada" required>
+
+                <label>Fecha de salida</label>
+                <input type="date" id="fechaSalida" required>
+
+                <div class="total" id="totalReserva">La reserva será de: S/ 0</div>
+
+                <button type="submit">Reservar Ahora!</button>
+            </form>
+        </div>
     </main>
 
 

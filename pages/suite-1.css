@@ -386,3 +386,7 @@ h2 {
     border-radius: 12px;
     object-fit: contain;
 }
+
+.zoomable{
+    cursor: pointer;
+}

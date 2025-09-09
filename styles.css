@@ -315,7 +315,7 @@ main {
 }
 
 .image:nth-child(2) {
-    background-image: url("assets/fondos/carrusel/suite2.jpg");
+    background-image: url("assets/suits/suit2/image1.jpeg");
 }
 
 .image:nth-child(3) {
@@ -354,6 +354,12 @@ main {
     font-size: 15px;
     font-family: d;
     color: #0af;
+    transition: all 400ms;
+}
+
+.button-det:hover{
+    color: aqua;
+    transition: all 400ms;
 }
 
 .camas {
@@ -377,7 +383,6 @@ main {
 
 .image:hover {
     width: 300px;
-    cursor: pointer;
 }
 
 .image::before {

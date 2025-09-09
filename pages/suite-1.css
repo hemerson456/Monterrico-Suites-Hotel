@@ -358,5 +358,31 @@ h2 {
     .pc{
         display: none;
     }
+    h2{
+        font-size: 0.9rem;
+    }
+}
 
+
+/* Fondo oscuro cuando se abre la imagen */
+.img-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85); /* degradado negro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    cursor: zoom-out;
+}
+
+/* Imagen en pantalla completa */
+.img-overlay img {
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 12px;
+    object-fit: contain;
 }

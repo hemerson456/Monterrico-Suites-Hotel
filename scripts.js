@@ -34,3 +34,30 @@ function leermas(){
     let element = document.getElementById("parrafo-ext")
     element.classList.toggle("height-parrafo")
 }
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const zoomables = document.querySelectorAll(".zoomable");
+
+    zoomables.forEach(img => {
+        img.addEventListener("click", () => {
+            // Crear overlay
+            const overlay = document.createElement("div");
+            overlay.classList.add("img-overlay");
+
+            // Imagen clonada
+            const bigImg = document.createElement("img");
+            bigImg.src = img.src;
+            bigImg.alt = img.alt;
+
+            overlay.appendChild(bigImg);
+            document.body.appendChild(overlay);
+
+            // Al hacer clic en el overlay se cierra
+            overlay.addEventListener("click", () => {
+                overlay.remove();
+            });
+        });
+    });
+});

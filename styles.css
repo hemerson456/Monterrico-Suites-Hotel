@@ -17,6 +17,11 @@ body {
     src: url("assets/font/Raleway-VariableFont_wght.ttf");
 }
 
+@font-face {
+    font-family: "a";
+    src: url("assets/font/Poppins-Light.ttf");
+}
+
 
 header {
     width: 1060px;
@@ -319,15 +324,15 @@ main {
 }
 
 .image:nth-child(3) {
-    background-image: url("assets/fondos/carrusel/suite3.jpg");
+    background-image: url("assets/suits/suit3/image1.jpeg");
 }
 
 .image:nth-child(4) {
-    background-image: url("assets/fondos/carrusel/suite4.jpg");
+    background-image: url("assets/suits/suit4/image1.jpeg");
 }
 
 .image:nth-child(5) {
-    background-image: url("assets/fondos/carrusel/suite5.jpg");
+    background-image: url("assets/suits/suit5/image1.jpeg");
 }
 
 /*aqui detalles */

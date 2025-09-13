@@ -63,71 +63,141 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/*logica de contacto*/
-const suites = {
-    1: "Suit 1: Dos camas Queen y 1 cama 1 ½. Precio desde S/200 por noche (6 huésped) + S/40 por huésped adicional.",
-    2: "Suit 2: Una cama Queen, 1 cama 1 ½. Precio desde S/200 por noche (4 huésped) + S/40 por huésped adicional.",
-    3: "Suit 3: Dos camas Queen, 1 cama 1 ½. Precio desde S/200 por noche (6 huésped) + S/40 por huésped adicional.",
-    4: "Suit 4: Tres camas Queen. Precio desde S/200 por noche (6 huésped) + S/40 por huésped adicional.",
-    5: "Suit 5: Tres camas Queen. Precio desde S/200 por noche (6 huésped) + S/40 por huésped adicional."
-  };
 
-  const suiteSelect = document.getElementById("suite");
-  const suiteInfo = document.getElementById("suiteInfo");
-  const fechaEntrada = document.getElementById("fechaEntrada");
-  const fechaSalida = document.getElementById("fechaSalida");
-  const totalReserva = document.getElementById("totalReserva");
 
-  suiteSelect.addEventListener("change", () => {
-    suiteInfo.innerText = suites[suiteSelect.value] || "Seleccione una suite para ver la información.";
-  });
 
-  function calcularTotal() {
-    const entrada = new Date(fechaEntrada.value);
-    const salida = new Date(fechaSalida.value);
-    if (entrada && salida && salida > entrada) {
-      const dias = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
-      const total = dias * 200;
-      totalReserva.innerText = `La reserva será de: S/ ${total} (${dias} noches)`;
-      return { dias, total };
-    } else {
-      totalReserva.innerText = "La reserva será de: S/ 0";
-      return { dias: 0, total: 0 };
-    }
+
+
+// ---------- DOM ----------
+const suitSelect = document.getElementById("suit");
+const entrada = document.getElementById("entrada");
+const salida = document.getElementById("salida");
+const totalDiv = document.getElementById("total");
+const detalleDiv = document.getElementById("detalle"); // <- asegúrate que exista en el HTML
+const imageContainer = document.getElementById("imageContainer");
+const form = document.getElementById("reservaForm");
+
+// 🔗 Imágenes por suit (reemplaza las URLs por las reales)
+const suitImages = {
+  1: "assets/suits/suit1/imagen1.jpeg",
+  2: "assets/suits/suit2/image3.jpeg",
+  3: "assets/suits/suit3/image1.jpeg",
+  4: "assets/suits/suit4/image1.jpeg",
+  5: "assets/suits/suit5/image1.jpeg",
+};
+
+// 💵 Tipo de cambio del dólar
+const exchangeRate = 3.5; // 👈 Aquí cambia el tipo de cambio cuando lo necesites
+
+// ---------- helpers ----------
+function nightsBetween(startDate, endDate) {
+  // calcula noches completas entre fechas usando UTC (evita problemas DST y decimales)
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+  const startUTC = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+  const endUTC = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+  return Math.floor((endUTC - startUTC) / MS_PER_DAY); // noches enteras
+}
+
+// Retorna un objeto con detalle y total
+function calcularPrecio() {
+  // validaciones básicas
+  if (!entrada.value || !salida.value) {
+    totalDiv.textContent = "Reserva será de: S/ 0";
+    detalleDiv.textContent = "";
+    return null;
   }
 
-  fechaEntrada.addEventListener("change", calcularTotal);
-  fechaSalida.addEventListener("change", calcularTotal);
+  const start = new Date(entrada.value);
+  const end = new Date(salida.value);
+  const days = nightsBetween(start, end);
 
-  document.getElementById("reservaForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+  if (isNaN(days) || days <= 0) {
+    totalDiv.textContent = "Selecciona fechas válidas (salida > entrada)";
+    detalleDiv.textContent = "";
+    return null;
+  }
 
-    const nombre = document.getElementById("nombre").value;
-    const whatsapp = document.getElementById("whatsapp").value;
-    const suite = suiteSelect.options[suiteSelect.selectedIndex].text;
-    const entrada = fechaEntrada.value;
-    const salida = fechaSalida.value;
-    const { dias, total } = calcularTotal();
+  let total = 0;
+  let detalle = "";
 
-    let body = `Estimados,%0A%0A`;
-    body += `Mi nombre es ${nombre}, mi número de WhatsApp es ${whatsapp}.%0A%0A`;
-    body += `Estoy interesado en reservar la ${suite}.%0A`;
-    body += `Fechas: desde ${entrada} hasta ${salida} (${dias} noches).%0A%0A`;
-    body += `Total estimado: S/ ${total}.%0A%0A`;
-    body += `Muchas gracias.%0A`;
+  if (days > 30) {
+    const extraDays = days - 30;
+    const precio30 = 1000 * exchangeRate;          // 1000 USD convertidos a soles
+    const precioExtra = extraDays * 200;           // S/200 por noche extra
+    total = precio30 + precioExtra;
 
-    const subject = `Reserva de ${suite}`;
-    const email = "mariofigueroa9@hotmail.com";
+    detalle = `30 días: S/ ${precio30.toFixed(2)} (1,000 USD × S/${exchangeRate}) + ${extraDays} días extra: S/ ${precioExtra.toFixed(2)} → Total: S/ ${total.toFixed(2)}`;
+  } else {
+    total = days * 200;
+    detalle = `${days} noche(s) × S/ 200 = S/ ${total.toFixed(2)}`;
+  }
 
-    // Detectar tamaño de pantalla
-    if (window.innerWidth <= 820) {
-      // 📱 Móvil → usar mailto
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${body}`;
-    } else {
-      // 💻 PC → abrir Gmail web
-      window.open(
-        `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${body}`,
-        "_blank"
-      );
-    }
-  });
+  totalDiv.textContent = `Reserva será de: S/ ${total.toFixed(2)}`;
+  detalleDiv.textContent = detalle;
+
+  return { total, days, detalle, precio30: (days>30? (1000*exchangeRate) : null) };
+}
+
+// ---------- listeners ----------
+suitSelect.addEventListener("change", () => {
+  const selected = suitSelect.value;
+  if (suitImages[selected]) {
+    imageContainer.style.backgroundImage = `url(${suitImages[selected]})`;
+  } else {
+    imageContainer.style.backgroundImage = "";
+  }
+  calcularPrecio();
+});
+
+entrada.addEventListener("change", calcularPrecio);
+salida.addEventListener("change", calcularPrecio);
+
+// Enviar correo (mailto en móvil, Gmail web en PC)
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const whatsapp = document.getElementById("whatsapp").value.trim();
+  const suit = suitSelect.options[suitSelect.selectedIndex].text;
+  const start = entrada.value;
+  const end = salida.value;
+
+  const calc = calcularPrecio();
+  if (!calc) {
+    alert("Por favor selecciona fechas válidas y una suite.");
+    return;
+  }
+
+  const subject = `Reserva de ${suit}`;
+  // cuerpo con el detalle incluido
+  const bodyLines = [
+    "Estimados,",
+    "",
+    `Mi nombre es ${nombre}`,
+    `WhatsApp: ${whatsapp}`,
+    "",
+    `Estoy interesado en reservar: ${suit}`,
+    `Fechas: ${start} a ${end} (${calc.days} noches)`,
+    "",
+    "Desglose:",
+    calc.detalle,
+    "",
+    `Total estimado: S/ ${calc.total.toFixed(2)}`,
+    "",
+    "Muchas gracias."
+  ];
+  const body = bodyLines.join("\n");
+
+  const email = "mariofigueroa9@hotmail.com";
+
+  if (window.innerWidth <= 820) {
+    // Móvil -> mailto
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  } else {
+    // PC -> Gmail web
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+      "_blank"
+    );
+  }
+});

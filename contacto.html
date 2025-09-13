@@ -58,40 +58,50 @@
         </nav>
     </header>
 
-    <main id="main-bloq">
-        <div class="form-container">
-            <h2>Reservar Suite</h2>
-            <form id="reservaForm">
-                <label>Nombre completo</label>
-                <input type="text" id="nombre" required>
+    <main>
+        <section class="main">
+            <div class="form-container">
+                <h2 class="topografic">¡Cotiza y Ahorra!</h2>
+                <form id="reservaForm">
+                    <label for="nombre" class="topografic">Nombre Completo:</label>
+                    <input type="text" id="nombre" required>
 
-                <label>Número de WhatsApp</label>
-                <input type="tel" id="whatsapp" placeholder="+51 999 999 999" required>
+                    <label for="whatsapp" class="topografic">Número de WhatsApp:</label>
+                    <input type="tel" id="whatsapp" class="topografic" required>
 
-                <label>Seleccione una Suite</label>
-                <select id="suite" required>
-                    <option value="">-- Seleccione --</option>
-                    <option value="1">Suit 1 (Dos camas Queen, 1 cama 1 ½)</option>
-                    <option value="2">Suit 2 (Una cama Queen, 1 cama 1 ½)</option>
-                    <option value="3">Suit 3 (Dos camas Queen, 1 cama 1 ½)</option>
-                    <option value="4">Suit 4 (Tres camas Queen)</option>
-                    <option value="5">Suit 5 (Tres camas Queen)</option>
-                </select>
+                    <label for="suit" class="topografic">Selecciona una Suite:</label>
+                    <select id="suit" required>
+                        <option value="">-- Escoge una Suite --</option>
+                        <option value="1">Suit 1 (2 camas Queen + 1 cama de 1½)</option>
+                        <option value="2">Suit 2 (1 cama Queen + 1 cama de 1½)</option>
+                        <option value="3">Suit 3 (2 camas Queen + 1 cama de 1½)</option>
+                        <option value="4">Suit 4 (3 camas Queen)</option>
+                        <option value="5">Suit 5 (3 camas Queen)</option>
+                    </select>
 
-                <div class="suite-info" id="suiteInfo">Seleccione una suite para ver la información.</div>
+                    <label for="entrada" class="topografic">Fecha de Entrada:</label>
+                    <input type="date" id="entrada" required >
 
-                <label>Fecha de entrada</label>
-                <input type="date" id="fechaEntrada" required>
+                    <label for="salida" class="topografic">Fecha de Salida:</label>
+                    <input type="date" id="salida" required>
 
-                <label>Fecha de salida</label>
-                <input type="date" id="fechaSalida" required>
+                    <div class="offer topografic letra-mini">
+                        ✨ Oferta especial por 30 días:
+                        Solo pagando por adelantado <strong class="letra-mini">1,000 USD</strong>
+                        5 días antes del fin de cada mes
+                    </div>
 
-                <div class="total" id="totalReserva">La reserva será de: S/ 0</div>
+                    <div class="total topografic letra-mini" id="total">Reserva será de: S/ 0</div>
+                    <div class="total topografic letra-mini" id="detalle"></div>
 
-                <button type="submit">Reservar Ahora!</button>
-            </form>
-        </div>
+
+                    <div class="butt"><button type="submit">Reservar Ahora!</button></div>
+                </form>
+            </div>
+            <div class="image-container" id="imageContainer"></div>
+        </section>
     </main>
+
 
 
     <footer class="footer">
